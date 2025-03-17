@@ -46,23 +46,28 @@ Crear un marketplace donde los usuarios puedan listar y comprar objetos mágicos
 
 ### 🔹 Frontend
 
-Perfil: Frontend.
-GitHub: https://github.com/wjmmk
-Correo: wjmmk3@gmail.com
-Tecnología: Angular.
-Nacionalidad: Colombia. 🇨🇴 
+- Perfil: Frontend.
+- GitHub: https://github.com/wjmmk
+- Correo: wjmmk3@gmail.com
+- Tecnología: Angular.
+- Nacionalidad: Colombia. 🇨🇴 
 
-Perfil: Frontend
-Github: https://github.com/ZarakiLancelot
-Tecnología: Angular, React (JS o TS)
-País: Guatemala 🇬🇹
-Correo: kenpachi2783@gmail.com
-Zona horaria: GMT-6
-Disponibilidad: Lunes, Jueves y Viernes desde las 5pm. Martes y Miércoles desde las 11am. Sábado y Domingo, casi a cualquier hora. 
+- Perfil: Frontend
+- Github: https://github.com/ZarakiLancelot
+- Tecnología: Angular, React (JS o TS)
+- País: Guatemala 🇬🇹
+- Correo: kenpachi2783@gmail.com
+- Zona horaria: GMT-6
+- Disponibilidad: Lunes, Jueves y Viernes desde las 5pm. Martes y Miércoles desde las 11am. Sábado y Domingo, casi a cualquier hora. 
 
-Perfil: Frontend
-Github: Sandra13988
+- Perfil: Frontend
+- Github: Sandra13988
 ---
 
+Ejemplo : Trello
+
+https://trello.com/b/tFswHxVK/kanban-example
+
+---
 ### 📩 Contacto
 Para cualquier duda o colaboración, puedes contactarnos a través de nuestros correos electrónicos o GitHub. ¡Esperamos construir algo genial juntos! 💡🚀
