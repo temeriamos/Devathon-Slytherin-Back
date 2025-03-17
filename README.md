@@ -26,7 +26,6 @@ Crear un marketplace donde los usuarios puedan listar y comprar objetos mágicos
 - **Nacionalidad:** Colombia  
 - **Correo Trello:** jamarbo@gmail.com  
 
-### 🔹 Backend
 #### [angcamdes](https://github.com/angcamdes)  
 - **Tecnología:** Java + Spring Boot  
 - **Nacionalidad:** España  
@@ -35,18 +34,34 @@ Crear un marketplace donde los usuarios puedan listar y comprar objetos mágicos
   - Martes, jueves, sábado (cualquier hora)  
   - Lunes, miércoles, viernes (antes de las 19:00)  
 
-### 🔹 Backend
 #### [raydberg](https://github.com/raydberg)  
 - **Tecnología:** Java + Spring Boot  
 - **Nacionalidad:** Perú  
 - **Correo:** raydbergg@gmail.com  
 
-### 🔹 Backend
 #### [Temeriamos](https://github.com/Temeriamos)  
 - **Tecnología:** Java + Spring Boot  
 - **Nacionalidad:** España  
 - **Correo:** carlos.vega.asmat@gmail.com  
 
+### 🔹 Frontend
+
+Perfil: Frontend.
+GitHub: https://github.com/wjmmk
+Correo: wjmmk3@gmail.com
+Tecnología: Angular.
+Nacionalidad: Colombia. 🇨🇴 
+
+Perfil: Frontend
+Github: https://github.com/ZarakiLancelot
+Tecnología: Angular, React (JS o TS)
+País: Guatemala 🇬🇹
+Correo: kenpachi2783@gmail.com
+Zona horaria: GMT-6
+Disponibilidad: Lunes, Jueves y Viernes desde las 5pm. Martes y Miércoles desde las 11am. Sábado y Domingo, casi a cualquier hora. 
+
+Perfil: Frontend
+Github: Sandra13988
 ---
 
 ### 📩 Contacto
