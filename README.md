@@ -16,58 +16,31 @@ Crear un marketplace donde los usuarios puedan listar y comprar objetos mágicos
 **Organizador:** Programación en Español - [TWITCH](https://www.twitch.tv/programacion_es)
 
 ## 🛠️ Tecnologías
-- **Backend:** Java + Spring Boot
+- **Backend:** Spring Boot + Maven + MySQL
 
-## 👥 Integrantes
+## 👥 Contribuidores
 
 ### 🔹 Backend
 #### [jamarbo](https://github.com/jamarbo)  
-- **Tecnología:** Java + Spring Boot  
-- **Nacionalidad:** Colombia  
-- **Correo Trello:** jamarbo@gmail.com  
 
 #### [angcamdes](https://github.com/angcamdes)  
-- **Tecnología:** Java + Spring Boot  
-- **Nacionalidad:** España  
-- **Correo Trello:** ang.cam.des@gmail.com  
-- **Disponibilidad:**
-  - Martes, jueves, sábado (cualquier hora)  
-  - Lunes, miércoles, viernes (antes de las 19:00)  
 
 #### [raydberg](https://github.com/raydberg)  
-- **Tecnología:** Java + Spring Boot  
-- **Nacionalidad:** Perú  
-- **Correo:** raydbergg@gmail.com  
 
-#### [Temeriamos](https://github.com/Temeriamos)  
-- **Tecnología:** Java + Spring Boot  
-- **Nacionalidad:** España  
-- **Correo:** carlos.vega.asmat@gmail.com  
+#### [Temeriamos](https://github.com/Temeriamos) 
 
 ### 🔹 Frontend
 
-- Perfil: Frontend.
-- GitHub: https://github.com/wjmmk
-- Correo: wjmmk3@gmail.com
-- Tecnología: Angular.
-- Nacionalidad: Colombia. 🇨🇴 
+#### [wjmmk](https://github.com/wjmmk)  
 
-- Perfil: Frontend
-- Github: https://github.com/ZarakiLancelot
-- Tecnología: Angular, React (JS o TS)
-- País: Guatemala 🇬🇹
-- Correo: kenpachi2783@gmail.com
-- Zona horaria: GMT-6
-- Disponibilidad: Lunes, Jueves y Viernes desde las 5pm. Martes y Miércoles desde las 11am. Sábado y Domingo, casi a cualquier hora. 
+#### [ZarakiLancelot](https://github.com/ZarakiLancelot)  
 
-- Perfil: Frontend
-- Github: Sandra13988
+#### [Sandra13988](https://github.com/Sandra13988)  
+
+#### [puriihuaman](https://github.com/puriihuaman)
+
 ---
 
 Ejemplo : Trello
 
 https://trello.com/b/tFswHxVK/kanban-example
-
----
-### 📩 Contacto
-Para cualquier duda o colaboración, puedes contactarnos a través de nuestros correos electrónicos o GitHub. ¡Esperamos construir algo genial juntos! 💡🚀
