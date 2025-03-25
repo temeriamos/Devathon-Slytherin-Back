@@ -18,6 +18,15 @@ Crear un marketplace donde los usuarios puedan listar y comprar objetos mágicos
 ## 🛠️ Tecnologías
 - **Backend:** Spring Boot + Maven + MySQL
 
+## Guía de instalacion:
+
+Ejecutar la siguiente linea de comando para obtener el repositorio:
+
+```bash
+git clone https://github.com/temeriamos/Devathon-Slytherin-Back.git
+```
+
+
 ## 👥 Contribuidores
 
 ### 🔹 Backend
