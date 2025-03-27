@@ -1,16 +1,18 @@
 package com.devathon.slytherin.services;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import com.devathon.slytherin.model.MagicObjectModel;
-import com.devathon.slytherin.repository.MagicObjectRepository;
+import com.devathon.slytherin.models.MagicObjectModel;
+import com.devathon.slytherin.repositories.MagicObjectRepository;
 
 @Service
+@RequiredArgsConstructor
 public class MagicObjectService {
 
     private final MagicObjectRepository magicObjectRepository;
 
-    public MagicObjectService(MagicObjectRepository magicObjectRepository) {
-        this.magicObjectRepository = magicObjectRepository;
-    }
+//    public MagicObjectService(MagicObjectRepository magicObjectRepository) {
+//        this.magicObjectRepository = magicObjectRepository;
+//    }
 
     public MagicObjectModel store(MagicObjectModel magicObjectmodel) {
         if (magicObjectmodel.getName() == null || magicObjectmodel.getName().isEmpty()) {
