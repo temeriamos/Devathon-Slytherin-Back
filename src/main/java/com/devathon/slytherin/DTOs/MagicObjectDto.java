@@ -12,7 +12,8 @@ import lombok.NoArgsConstructor;
 public class MagicObjectDto {
     private String name;
     private String description;
-    private Double price;
-    private String image;
-
+    private Integer price_galeon;
+    private Integer price_sickle;
+    private Integer price_knut;
+    private String url_image;
 }
