@@ -1,6 +1,10 @@
 package com.devathon.slytherin.controllers;
 
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,12 +40,24 @@ public class MagicObjectController {
                 MagicObjectModel.builder()
                         .name(magicObjectDto.getName())
                         .description(magicObjectDto.getDescription())
-                        .price(magicObjectDto.getPrice())
-                        .image(magicObjectDto.getImage())
+                        .price_galeon(magicObjectDto.getPrice_galeon())
+                        .price_sickle(magicObjectDto.getPrice_sickle())
+                        .price_knut(magicObjectDto.getPrice_knut())
+                        .url_image(magicObjectDto.getUrl_image())
                         .build();
 
         MagicObjectModel savedObject = magicObjectService.store(magicObjectmodel);
 
         return "Objeto creado - " + savedObject.getName();
+    }
+
+    //list objects
+    @GetMapping("/")
+    /**
+     * @return List<MagicObjectModel>
+     * @see MagicObjectModel
+     */
+    public List<MagicObjectModel> getAllMagicObjects() {
+        return magicObjectService.get();
     }
 }
