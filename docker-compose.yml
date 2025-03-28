@@ -7,22 +7,23 @@ services:
     depends_on:
       - db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/mpslytherin?useSSL=false&allowPublicKeyRetrieval=true
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
     volumes:
       - ./src:/app/src  # Monta el código fuente desde tu máquina local al contenedor
     networks:
       - springboot-network
 
   db:
-    image: mysql:8.0
+    image: postgres:latest
     restart: always
     environment:
-      MYSQL_DATABASE: mpslytherin
-      MYSQL_ROOT_PASSWORD: root
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      - "3306:3306"
+      - "5432:5432"
     networks:
       - springboot-network
 
