@@ -1,5 +1,4 @@
 package com.devathon.slytherin.DTOs;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -11,12 +10,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Schema(description = "DTO for the creation of a user")
-public class UserDto {
-    @JsonProperty("house_id")
-    private Integer house_id;    
+@Schema(description = "DTO for the response of a user")
+public class UserResponseDto {
+    private Long id;
     private String name;
     private Integer price_galeon;
     private Integer price_sickle;
     private Integer price_knut;
+    private HouseBasicDto house;
 }
