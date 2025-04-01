@@ -8,14 +8,14 @@ import io.swagger.v3.oas.annotations.servers.Server;
 
 @OpenAPIDefinition(
         info = @Info(
-                title = "Devathon Equipo 1",
-                description = "API para Devathon Equipo 1",
+                title = "Devathon - Slytherin Team",
+                description = "API Magic Marketplace - Shopping magical objects",
                 termsOfService = "",
                 version = "1.0.0",
                 contact = @Contact(
-                        name = "Equipo Numero 1",
-                        url = "https://www.devathon1",
-                        email = "support@devathon1.com"
+                        name = "Slytherin Team",
+                        url = "https://devathon.duckdns.org",
+                        email = "-"
                 ),
                 license = @License(
                         name = "Standard Apache License Version 2.0 for Fintech",
