@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,7 +26,11 @@ public class UserModel {
     private Integer price_sickle;
     @Column(nullable = false)
     private Integer price_knut;
-
+    @ManyToOne
+    @JoinColumn(name = "house_id", nullable = false)
+    @JsonBackReference
+    private HouseModel houseModel;
+    
     @PrePersist
     @PreUpdate
     private void setDefaultValues() {
