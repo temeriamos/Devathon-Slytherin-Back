@@ -3,6 +3,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,8 +19,19 @@ public class MagicObjectModel {
     private Long id;
     @Column(nullable = false, length = 50)
     private String name ;
-    @Column(nullable = false, length = 200)
-    private String description;
+    @Column(nullable = false, length = 250)
+    private String short_description;
+    @Lob
+    @Column(nullable = true)
+    private String long_description;
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    @JsonBackReference
+    private CategoryModel category;
+    @ManyToOne
+    @JoinColumn(name = "rarity_id", nullable = false)
+    @JsonBackReference
+    private RarityModel rarity;
     @Column(nullable = false)
     private Integer price_galeon;
     @Column(nullable = false)
@@ -27,6 +40,8 @@ public class MagicObjectModel {
     private Integer price_knut;
     @Column(nullable = false, length = 255)
     private String url_image;
+    @Builder.Default
+    private boolean purchased = false;
 
     @PrePersist
     @PreUpdate
