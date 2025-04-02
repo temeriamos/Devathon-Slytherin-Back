@@ -61,7 +61,7 @@ public class DataSeeder implements CommandLineRunner {
             magicObjectRepository.save(
                     MagicObjectModel.builder()
                             .name("Varita de Saúco")
-                            .description("La varita más poderosa del mundo mágico.")
+                            .short_description("La varita más poderosa del mundo mágico.")
                             .price_galeon(1000)
                             .price_sickle(0)
                             .price_knut(0)
@@ -71,7 +71,7 @@ public class DataSeeder implements CommandLineRunner {
             magicObjectRepository.save(
                     MagicObjectModel.builder()
                             .name("Capa de Invisibilidad")
-                            .description("Permite al usuario volverse invisible.")
+                            .short_description("Permite al usuario volverse invisible.")
                             .price_galeon(500)
                             .price_sickle(200)
                             .price_knut(50)
