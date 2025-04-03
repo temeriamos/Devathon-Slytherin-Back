@@ -1,20 +1,31 @@
 package com.devathon.slytherin.services;
+
+import com.devathon.slytherin.DTOs.MagicObjectPaginatorResponseDto;
+import com.devathon.slytherin.mappers.MagicObjectMapper;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.devathon.slytherin.DTOs.CategoryResponseDto;
 import com.devathon.slytherin.DTOs.MagicObjectResponseDto;
 import com.devathon.slytherin.DTOs.RarityResponseDto;
 import com.devathon.slytherin.models.MagicObjectModel;
 import com.devathon.slytherin.repositories.MagicObjectRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class MagicObjectService {
 
     private final MagicObjectRepository magicObjectRepository;
+    private final MagicObjectMapper magicObjectMapper;
 
     public MagicObjectModel store(MagicObjectModel magicObjectmodel) {
         if (magicObjectmodel.getName() == null || magicObjectmodel.getName().isEmpty()) {
@@ -27,7 +38,7 @@ public class MagicObjectService {
             throw new IllegalArgumentException("The magic object must have a price.");
         }
 
-        if (Optional.ofNullable(magicObjectmodel.getPrice_galeon()).orElse(0) <= 0 && Optional.ofNullable(magicObjectmodel.getPrice_sickle()).orElse(0) <= 0 && Optional.ofNullable(magicObjectmodel.getPrice_knut()).orElse(0) <= 0 ) {
+        if (Optional.ofNullable(magicObjectmodel.getPrice_galeon()).orElse(0) <= 0 && Optional.ofNullable(magicObjectmodel.getPrice_sickle()).orElse(0) <= 0 && Optional.ofNullable(magicObjectmodel.getPrice_knut()).orElse(0) <= 0) {
             throw new IllegalArgumentException("The magic object must have a price greater than 0.");
         }
 
@@ -37,59 +48,45 @@ public class MagicObjectService {
         return magicObjectRepository.save(magicObjectmodel);
     }
 
-    public List<MagicObjectResponseDto> get() {
-        return magicObjectRepository.findAll().stream()
-            .map(magicobject -> {
-                MagicObjectResponseDto magicobjectResponseDto = new MagicObjectResponseDto();
-                magicobjectResponseDto.setId(magicobject.getId());
-                magicobjectResponseDto.setName(magicobject.getName());
-                magicobjectResponseDto.setShort_description(magicobject.getShort_description());
-                magicobjectResponseDto.setLong_description(magicobject.getLong_description());
-                magicobjectResponseDto.setCategory(new CategoryResponseDto(
-                    magicobject.getCategory().getId(),
-                    magicobject.getCategory().getName()
-                ));
-                magicobjectResponseDto.setRarity(new RarityResponseDto(
-                    magicobject.getRarity().getId(),
-                    magicobject.getRarity().getName()
-                ));
-                magicobjectResponseDto.setPrice_galeon(magicobject.getPrice_galeon());
-                magicobjectResponseDto.setPrice_sickle(magicobject.getPrice_sickle());
-                magicobjectResponseDto.setPrice_knut(magicobject.getPrice_knut());
-                magicobjectResponseDto.setUrl_image(magicobject.getUrl_image());
-                magicobjectResponseDto.setPurchased(magicobject.isPurchased());
-                return magicobjectResponseDto;
-            })
-            .toList();
+    @Transactional(readOnly = true)
+    public MagicObjectPaginatorResponseDto get(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<MagicObjectModel> magicObjectPage = magicObjectRepository.findAll(pageable);
+        List<MagicObjectResponseDto> magicObjectDtos = magicObjectPage.getContent()
+                .stream()
+                .map(magicObjectMapper::toMagicObjectDto)
+                .collect(Collectors.toList());
+
+        return new MagicObjectPaginatorResponseDto(magicObjectDtos, magicObjectPage.getTotalPages(), magicObjectPage.getSize());
     }
 
     public MagicObjectResponseDto get(Long id) {
 
         return magicObjectRepository
-        .findById(id)
-        .map(magicobject -> {
-            MagicObjectResponseDto magicobjectResponseDto = new MagicObjectResponseDto();
-                magicobjectResponseDto.setId(magicobject.getId());
-                magicobjectResponseDto.setName(magicobject.getName());
-                magicobjectResponseDto.setShort_description(magicobject.getShort_description());
-                magicobjectResponseDto.setLong_description(magicobject.getLong_description());
-                magicobjectResponseDto.setCategory(new CategoryResponseDto(
-                    magicobject.getCategory().getId(),
-                    magicobject.getCategory().getName()
-                ));
-                magicobjectResponseDto.setRarity(new RarityResponseDto(
-                    magicobject.getRarity().getId(),
-                    magicobject.getRarity().getName()
-                ));
-                magicobjectResponseDto.setPrice_galeon(magicobject.getPrice_galeon());
-                magicobjectResponseDto.setPrice_sickle(magicobject.getPrice_sickle());
-                magicobjectResponseDto.setPrice_knut(magicobject.getPrice_knut());
-                magicobjectResponseDto.setUrl_image(magicobject.getUrl_image());
-                magicobjectResponseDto.setPurchased(magicobject.isPurchased());
-            return magicobjectResponseDto;
-        })
-        .orElseThrow(
-            () -> new IllegalArgumentException("Magic object not exist")
-        );
+                .findById(id)
+                .map(magicobject -> {
+                    MagicObjectResponseDto magicobjectResponseDto = new MagicObjectResponseDto();
+                    magicobjectResponseDto.setId(magicobject.getId());
+                    magicobjectResponseDto.setName(magicobject.getName());
+                    magicobjectResponseDto.setShort_description(magicobject.getShort_description());
+                    magicobjectResponseDto.setLong_description(magicobject.getLong_description());
+                    magicobjectResponseDto.setCategory(new CategoryResponseDto(
+                            magicobject.getCategory().getId(),
+                            magicobject.getCategory().getName()
+                    ));
+                    magicobjectResponseDto.setRarity(new RarityResponseDto(
+                            magicobject.getRarity().getId(),
+                            magicobject.getRarity().getName()
+                    ));
+                    magicobjectResponseDto.setPrice_galeon(magicobject.getPrice_galeon());
+                    magicobjectResponseDto.setPrice_sickle(magicobject.getPrice_sickle());
+                    magicobjectResponseDto.setPrice_knut(magicobject.getPrice_knut());
+                    magicobjectResponseDto.setUrl_image(magicobject.getUrl_image());
+                    magicobjectResponseDto.setPurchased(magicobject.isPurchased());
+                    return magicobjectResponseDto;
+                })
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Magic object not exist")
+                );
     }
 }
