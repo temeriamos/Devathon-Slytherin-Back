@@ -1,15 +1,12 @@
 package com.devathon.slytherin.controllers;
 
+import com.devathon.slytherin.DTOs.MagicObjectPaginatorResponseDto;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.devathon.slytherin.DTOs.MagicObjectDto;
 import com.devathon.slytherin.DTOs.MagicObjectResponseDto;
@@ -45,7 +42,7 @@ public class MagicObjectController {
         RarityModel rarity = rarityRepository.findById(magicobjectDto.getRarity_id().longValue())
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 
-        MagicObjectModel magicObjectModel = MagicObjectModel.builder()        
+        MagicObjectModel magicObjectModel = MagicObjectModel.builder()
                 .name(magicobjectDto.getName())
                 .short_description(magicobjectDto.getShort_description())
                 .long_description(magicobjectDto.getLong_description())
@@ -64,10 +61,10 @@ public class MagicObjectController {
     }
 
     @Operation(summary = "Obtain a list of magic objects", description = "Return all magic objects registered")
-    @ApiResponse(responseCode = "200", description = "List of magic objects returned successfully") 
+    @ApiResponse(responseCode = "200", description = "List of magic objects returned successfully")
     @GetMapping("/")
-    public List<MagicObjectResponseDto> getAllMagicObjects() {
-        return magicObjectService.get();
+    public ResponseEntity<MagicObjectPaginatorResponseDto> getAllMagicObjects(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size) {
+        return ResponseEntity.ok(magicObjectService.get(page,size));
     }
 
     @Operation(summary = "Obtain a single magic object", description = "Return a single magic object by ID")
