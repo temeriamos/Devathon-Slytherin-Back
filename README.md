@@ -16,7 +16,7 @@ Crear un marketplace donde los usuarios puedan listar y comprar objetos mágicos
 **Organizador:** Programación en Español - [TWITCH](https://www.twitch.tv/programacion_es)
 
 ## 🛠️ Tecnologías
-- **Backend:** Spring Boot + Maven + MySQL + Swagger
+- **Backend:** Spring Boot + Maven + Postgres + Swagger
 
 ## Guía de instalacion:
 
@@ -27,12 +27,17 @@ git clone https://github.com/temeriamos/Devathon-Slytherin-Back.git
 ```
 ### 📌 Verificar el archivos:
 
-- Verificar base de datos del proyecto  en el archivo `docker-compose.yml`, en este caso usamos el nombre `mpslytherin` y debe estar en las lineas :
+- Verificar base de datos del proyecto  en el archivo `docker-compose.yml`, en este caso usamos el archivo `.env`, que debe ir en la `raiz del proyecto`.
 
-    - SPRING_DATASOURCE_URL (app)
-        - jdbc:mysql://db:3306/mpslytherin?useSSL=false&allowPublicKeyRetrieval=true
-    - MYSQL_DATABASE (db)
-        -  MYSQL_DATABASE: mpslytherin
+```env
+SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/mpslytherin
+SPRING_DATASOURCE_USERNAME=postgres
+SPRING_DATASOURCE_PASSWORD=root
+
+POSTGRES_DB=mpslytherin
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=root
+```
 
 ```yml
 version: '3.8'
@@ -44,47 +49,40 @@ services:
     depends_on:
       - db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/mpslytherin?useSSL=false&allowPublicKeyRetrieval=true
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
     volumes:
       - ./src:/app/src  # Monta el código fuente desde tu máquina local al contenedor
     networks:
       - springboot-network
 
   db:
-    image: mysql:8.0
+    image: postgres:latest
     restart: always
     environment:
-      MYSQL_DATABASE: mpslytherin
-      MYSQL_ROOT_PASSWORD: root
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      - "3306:3306"
+      - "5432:5432"
     networks:
       - springboot-network
 
 networks:
   springboot-network:
     driver: bridge
+
 ```
-### Probar endpoint de prueba
+### Probar endpoint
 
-- url (POST): http://localhost:8080/magicobject/
+- Local (POST): http://localhost:8080/magicobject/
+- Server (POST): https://devathon.duckdns.org/magicobject/
 
-#### Usando postman:
+#### Endpoind Swagger
 
-- body(JSON)
+- [https://devathon.duckdns.org/](https://devathon.duckdns.org/magicobject/)
 
-```json
-    {
-        "name":"Book",
-        "description":"First Book",
-        "price": 10,
-        "imagen":"www.imgur.com/firt_book_slytherin"
-    }
-```
-
-Resultado: Objeto creado - Book
 
 
 ## 👥 Contribuidores
