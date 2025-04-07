@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MagicObjectService {
 
+    @Autowired
     private final MagicObjectRepository magicObjectRepository;
+
     private final MagicObjectMapper magicObjectMapper;
 
     public MagicObjectModel store(MagicObjectModel magicObjectmodel) {
@@ -52,6 +55,25 @@ public class MagicObjectService {
     public MagicObjectPaginatorResponseDto get(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<MagicObjectModel> magicObjectPage = magicObjectRepository.findAll(pageable);
+        List<MagicObjectResponseDto> magicObjectDtos = magicObjectPage.getContent()
+                .stream()
+                .map(magicObjectMapper::toMagicObjectDto)
+                .collect(Collectors.toList());
+
+        return new MagicObjectPaginatorResponseDto(magicObjectDtos, magicObjectPage.getTotalPages(), magicObjectPage.getSize());
+    }
+
+    @Transactional(readOnly = true)
+    public MagicObjectPaginatorResponseDto getByCategory(String category, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<MagicObjectModel> magicObjectPage;
+
+        if (category != null && !category.isEmpty()) {
+            magicObjectPage = magicObjectRepository.findByCategoryName(category, pageable);
+        } else {
+            magicObjectPage = magicObjectRepository.findAll(pageable);
+        }
+
         List<MagicObjectResponseDto> magicObjectDtos = magicObjectPage.getContent()
                 .stream()
                 .map(magicObjectMapper::toMagicObjectDto)
