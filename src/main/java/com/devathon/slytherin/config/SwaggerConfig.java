@@ -26,12 +26,12 @@ import io.swagger.v3.oas.annotations.servers.Server;
         servers = {
                 @Server(
                         description = "Local Server",
-                        url = "http://localhost:8080"
+                        url = "http://localhost:8080/api"
                 ),
                 @Server(
                         description = "Production Server",
-                        url = "https://devathon.duckdns.org"
-                    )
+                        url = "https://devathon.duckdns.org/api"
+                )
         }
 )
 public class SwaggerConfig {}
