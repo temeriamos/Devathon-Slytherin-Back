@@ -60,11 +60,13 @@ public class MagicObjectController {
         return saved.getName() + " created";
     }
 
-    @Operation(summary = "Obtain a list of magic objects", description = "Return all magic objects registered")
-    @ApiResponse(responseCode = "200", description = "List of magic objects returned successfully")
+    @Operation(summary = "Obtain a list of unsold magic objects", description = "Return all magic objects with purchased = false")
+    @ApiResponse(responseCode = "200", description = "List of unsold magic objects returned successfully")
     @GetMapping("/")
-    public ResponseEntity<MagicObjectPaginatorResponseDto> getAllMagicObjects(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size) {
-        return ResponseEntity.ok(magicObjectService.get(page, size));
+    public ResponseEntity<MagicObjectPaginatorResponseDto> getAllMagicObjects(
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "10") Integer size) {
+        return ResponseEntity.ok(magicObjectService.getUnsoldMagicObjects(page, size));
     }
 
     @Operation(summary = "Obtain a single magic object", description = "Return a single magic object by ID")
