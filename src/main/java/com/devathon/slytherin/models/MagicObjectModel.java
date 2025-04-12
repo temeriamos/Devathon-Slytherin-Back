@@ -22,6 +22,7 @@ public class MagicObjectModel {
     @Column(nullable = false, length = 250)
     private String short_description;
     @Lob
+    @Basic(fetch = FetchType.EAGER)
     @Column(nullable = true)
     private String long_description;
     @ManyToOne

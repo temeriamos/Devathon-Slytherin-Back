@@ -12,6 +12,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.orm.jpa.JpaSystemException;
 
 import java.util.Collections;
 import java.util.List;
@@ -109,6 +110,17 @@ public class GlobalExceptionController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
+    @ExceptionHandler(JpaSystemException.class)
+    public ResponseEntity<ErrorResponse> handleJpaSystemException(JpaSystemException ex, HttpServletRequest request) {
+        ErrorResponse errorResponse = new ErrorResponse(
+            "DATABASE_ERROR",
+            "Error al acceder a la base de datos",
+            List.of("Detalle: " + ex.getMostSpecificCause().getMessage(), "Ruta: " + request.getRequestURI())
+        );
+
+        log.error("Error de base de datos en la ruta [{}]: {}", request.getRequestURI(), ex.getMessage(), ex);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleException(Exception ex, HttpServletRequest request) {
