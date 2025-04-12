@@ -90,4 +90,19 @@ public class MagicObjectController {
         MagicObjectPaginatorResponseDto response = magicObjectService.getByCategory(category, page, size);
         return ResponseEntity.ok(response);
     }
+
+    @Operation(
+            summary = "Obtener objetos mágicos con detalles por categoría",
+            description = "Devuelve una lista paginada de objetos mágicos filtrados por categoría, incluyendo detalles como la categoría."
+    )
+    @ApiResponse(responseCode = "200", description = "Lista de objetos mágicos devuelta con éxito")
+    @ApiResponse(responseCode = "400", description = "Solicitud inválida")
+    @GetMapping("/with-categories")
+    public ResponseEntity<MagicObjectPaginatorResponseDto> getMagicObjectsWithCategories(
+            @RequestParam(required = false) String category,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        MagicObjectPaginatorResponseDto response = magicObjectService.getByCategoryWithDetails(category, page, size);
+        return ResponseEntity.ok(response);
+    }
 }
