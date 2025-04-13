@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.devathon.slytherin.DTOs.CurrencyDto;
+import com.devathon.slytherin.DTOs.PurchaseHistoryDto;
 import com.devathon.slytherin.DTOs.SaleItemResponseDto;
 import com.devathon.slytherin.DTOs.SaleRequestDto;
 import com.devathon.slytherin.models.MagicObjectModel;
@@ -115,4 +116,15 @@ public class SaleController {
         return ResponseEntity.ok(saleItemService.getItemsbySaleId(id_sale));
     }
 
+    @Operation(summary = "Obtener historial de compras de un usuario", description = "Devuelve el historial de compras de un usuario ordenado por fecha descendente")
+    @ApiResponse(responseCode = "200", description = "Historial de compras devuelto con éxito")
+    @ApiResponse(responseCode = "404", description = "Usuario no encontrado o sin historial de compras")
+    @GetMapping("/history/{userId}")
+    public ResponseEntity<List<PurchaseHistoryDto>> getPurchaseHistory(@PathVariable Long userId) {
+        List<PurchaseHistoryDto> history = saleService.getPurchaseHistoryByUserId(userId);
+        if (history.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(history);
+    }
 }

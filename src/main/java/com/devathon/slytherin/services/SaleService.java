@@ -1,19 +1,27 @@
 package com.devathon.slytherin.services;
 import lombok.RequiredArgsConstructor;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.devathon.slytherin.DTOs.CurrencyDto;
+import com.devathon.slytherin.DTOs.PurchaseHistoryDto;
 import com.devathon.slytherin.models.SaleModel;
 import com.devathon.slytherin.repositories.SaleRepository;
+import com.devathon.slytherin.repositories.SaleItemRepository;
+import com.devathon.slytherin.repositories.MagicObjectRepository;
+import com.devathon.slytherin.models.MagicObjectModel;
 
 @Service
 @RequiredArgsConstructor
 public class SaleService {
-    @Autowired
     private final SaleRepository saleRepository;
+    @Autowired
+    private MagicObjectRepository magicObjectRepository;
+    @Autowired
+    private SaleItemRepository saleItemRepository;
 
     public SaleModel store(SaleModel saleModel) {
 
@@ -42,5 +50,28 @@ public class SaleService {
         if (saleModel.getId() == null) {
             throw new RuntimeException("Error in DB: Sale not updated");
         }
+    }
+
+    public List<PurchaseHistoryDto> getPurchaseHistoryByUserId(Long userId) {
+        List<SaleModel> sales = saleRepository.findByUserIdOrderByDateDesc(userId);
+
+        return sales.stream().map(sale -> PurchaseHistoryDto.builder()
+                .date(sale.getDate().toString())
+                .objectName(getObjectNameFromSale(sale)) // Método auxiliar para obtener el nombre del objeto
+                .priceGaleon(sale.getPrice_galeon())
+                .priceSickle(sale.getPrice_sickle())
+                .priceKnut(sale.getPrice_knut())
+                .build())
+                .collect(Collectors.toList());
+    }
+
+    private String getObjectNameFromSale(SaleModel sale) {
+        // Obtén el nombre del objeto asociado a la venta
+        return saleItemRepository.findBySale_Id(sale.getId()).stream()
+                .findFirst() // Suponiendo que cada venta tiene al menos un objeto
+                .map(saleItem -> magicObjectRepository.findById(saleItem.getObject_id())
+                        .map(MagicObjectModel::getName)
+                        .orElse("Unknown Object"))
+                .orElse("Unknown Object");
     }
 }
