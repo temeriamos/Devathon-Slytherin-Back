@@ -106,18 +106,18 @@ public class MagicObjectController {
         return ResponseEntity.ok(response);
     }
 
-    @Operation(
-            summary = "Buscar objetos mágicos por nombre",
-            description = "Devuelve una lista paginada de objetos mágicos cuyo nombre contenga el texto proporcionado."
-    )
-    @ApiResponse(responseCode = "200", description = "Lista de objetos mágicos devuelta con éxito")
-    @ApiResponse(responseCode = "400", description = "Solicitud inválida")
-    @GetMapping("/search")
-    public ResponseEntity<MagicObjectPaginatorResponseDto> searchMagicObjects(
-            @RequestParam String query,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
+@Operation(
+                summary = "Search for Magic Objects by name",
+                description = "Returns a paginated list of magic objects whose name contains the provided text."
+)
+@ApiResponse(responseCode = "200", description = "List of magic objects returned successfully")
+@ApiResponse(responseCode = "400", description = "Invalid request")
+@GetMapping("/search")
+public ResponseEntity<MagicObjectPaginatorResponseDto> searchMagicObjects(
+                @RequestParam String query,
+                @RequestParam(defaultValue = "0") int page,
+                @RequestParam(defaultValue = "10") int size) {
         MagicObjectPaginatorResponseDto response = magicObjectService.searchByName(query, page, size);
         return ResponseEntity.ok(response);
-    }
+}
 }
