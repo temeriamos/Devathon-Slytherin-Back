@@ -80,24 +80,7 @@ public class MagicObjectService {
         return new MagicObjectPaginatorResponseDto(magicObjectDtos, magicObjectPage.getTotalPages(), magicObjectPage.getSize());
     }
 
-    @Transactional(readOnly = true)
-    public MagicObjectPaginatorResponseDto getByCategoryWithDetails(String category, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<MagicObjectModel> magicObjectPage;
-
-        if (category != null && !category.isEmpty()) {
-            magicObjectPage = magicObjectRepository.findByCategoryName(category, pageable);
-        } else {
-            magicObjectPage = magicObjectRepository.findAll(pageable);
-        }
-
-        List<MagicObjectResponseDto> magicObjectDtos = magicObjectPage.getContent()
-                .stream()
-                .map(magicObjectMapper::toMagicObjectDto)
-                .collect(Collectors.toList());
-
-        return new MagicObjectPaginatorResponseDto(magicObjectDtos, magicObjectPage.getTotalPages(), magicObjectPage.getSize());
-    }
+  
 
     @Transactional(readOnly = true)
     public MagicObjectPaginatorResponseDto getUnsoldMagicObjects(int page, int size) {
