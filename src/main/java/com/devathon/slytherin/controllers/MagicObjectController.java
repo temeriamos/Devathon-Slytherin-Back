@@ -77,17 +77,17 @@ public class MagicObjectController {
     }
 
     @Operation(
-            summary = "Obtener objetos mágicos por categoría",
-            description = "Devuelve una lista paginada de objetos mágicos filtrados por categoría. Si no se especifica una categoría, devuelve todos los objetos mágicos."
+            summary = "Get magic objects filtered by category",
+            description = "Returns a paginated list of magic objects filtered by category ID. If a category is not specified, returns all magic items."
     )
     @ApiResponse(responseCode = "200", description = "Lista de objetos mágicos devuelta con éxito")
     @ApiResponse(responseCode = "400", description = "Solicitud inválida")
     @GetMapping
     public ResponseEntity<MagicObjectPaginatorResponseDto> getMagicObjects(
-            @RequestParam(required = false) String category,
+            @RequestParam(required = false) Long category, // Cambiado a Long para aceptar el ID de la categoría
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
-        MagicObjectPaginatorResponseDto response = magicObjectService.getByCategory(category, page, size);
+        MagicObjectPaginatorResponseDto response = magicObjectService.getByCategoryId(category, page, size);
         return ResponseEntity.ok(response);
     }
 
