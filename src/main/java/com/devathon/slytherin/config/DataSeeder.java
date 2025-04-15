@@ -56,7 +56,6 @@ public class DataSeeder implements CommandLineRunner {
                             .price_galeon(50)
                             .price_sickle(30)
                             .price_knut(20)
-                            .houseModel(sanDamian)
                             .build());
 
             UserModel user2 = userRepository.save(
@@ -65,7 +64,6 @@ public class DataSeeder implements CommandLineRunner {
                             .price_galeon(40)
                             .price_sickle(25)
                             .price_knut(15)
-                            .houseModel(slytherin)
                             .build());
             // 3. Crear categorias de objetos mágicos
             CategoryModel artefactos_magicos = categoryRepository.save(
