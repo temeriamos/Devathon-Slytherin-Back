@@ -30,12 +30,11 @@ public class UserModel {
 
     @Column(nullable = false)
     private Integer price_knut;
-
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "house_id", nullable = false)
     @JsonBackReference
-    private HouseModel houseModel;
-
+    private HouseModel houseModel;*/
+    
     @PrePersist
     @PreUpdate
     private void setDefaultValues() {

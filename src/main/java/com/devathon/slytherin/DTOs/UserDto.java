@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @Schema(description = "DTO for the creation of a user")
 public class UserDto {
-    @JsonProperty("house_id")
-    private Integer house_id;    
+    //@JsonProperty("house_id")
+    //private Integer house_id;    
     private String name;
     private Integer price_galeon;
     private Integer price_sickle;

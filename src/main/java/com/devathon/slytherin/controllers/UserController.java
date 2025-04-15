@@ -38,12 +38,11 @@ public class UserController {
     public String createUser(@RequestBody UserDto userDto) {
 
         // Buscar la casa por ID
-        HouseModel house = houseRepository.findById(userDto.getHouse_id().longValue())
-                .orElseThrow(() -> new RuntimeException("House not found"));
+        //HouseModel house = houseRepository.findById(userDto.getHouse_id().longValue())
+        //        .orElseThrow(() -> new RuntimeException("House not found"));
 
         // Crear el usuario
         UserModel userModel = UserModel.builder()
-                .houseModel(house)
                 .name(userDto.getName())
                 .price_galeon(userDto.getPrice_galeon())
                 .price_sickle(userDto.getPrice_sickle())
