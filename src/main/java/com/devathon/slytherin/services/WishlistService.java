@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.devathon.slytherin.DTOs.WishlistDto;
 import com.devathon.slytherin.DTOs.WishlistGroupedResponseDto;
+import com.devathon.slytherin.DTOs.WishlistObjectsResponseDto;
 import com.devathon.slytherin.models.MagicObjectModel;
 import com.devathon.slytherin.models.UserModel;
 import com.devathon.slytherin.models.WishlistModel;
@@ -34,13 +35,18 @@ public class WishlistService {
 
         UserModel user = wishlists.get(0).getUserModel();
 
-        List<MagicObjectModel> magicObjects = wishlists.stream()
-            .map(WishlistModel::getMagicObjectModel)
-            .toList();
+        List<WishlistObjectsResponseDto> wishlistObject = wishlists.stream()
+            .map(wishlist -> {
+                MagicObjectModel magicObject = wishlist.getMagicObjectModel();
+                return new WishlistObjectsResponseDto(
+                    wishlist.getId(),
+                    magicObject
+                );
+            }).toList();
 
         return WishlistGroupedResponseDto.builder()
             .user(user)
-            .magicObjects(magicObjects)
+            .wishlistObjects(wishlistObject)
             .build();
     }
 

@@ -38,14 +38,14 @@ public class WishlistController {
         return wishlistService.getWishlistByUser(userId);
     }
 
-    @Operation(summary = "Insert wishlist by user", description = "Insert a magic object in the wishlist of a user")
+    @Operation(summary = "Insert wishlist by idUser and idObject", description = "Insert a magic object in the wishlist of a user")
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     @ApiResponse(responseCode = "404", description = "User or Magic Object not found")
     public String createWishlist(@RequestBody WishlistDto wishlistDto) {
         return wishlistService.createWishlist(wishlistDto);
     }
-    @Operation(summary = "Delete wishlist by user", description = "Delete a magic object in the wishlist of a user")
+    @Operation(summary = "Delete wishlist by idWishlist", description = "Delete a magic object in the wishlist of a user")
     @DeleteMapping("/")
     @ApiResponse(responseCode = "200", description = "Wishlist deleted successfully")
     @ApiResponse(responseCode = "404", description = "User or Magic Object not found")
