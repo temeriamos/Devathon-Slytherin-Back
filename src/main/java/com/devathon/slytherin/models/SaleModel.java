@@ -15,14 +15,20 @@ public class SaleModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
-    private Long user_id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false) // Relación con UserModel
+    private UserModel user;
+
     @Column(nullable = false)
     private Date date;
+
     @Column(nullable = false)
     private Integer price_galeon;
+
     @Column(nullable = false)
     private Integer price_sickle;
+
     @Column(nullable = false)
     private Integer price_knut;
 

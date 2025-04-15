@@ -25,9 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MagicObjectService {
 
-    @Autowired
     private final MagicObjectRepository magicObjectRepository;
-
     private final MagicObjectMapper magicObjectMapper;
 
     public MagicObjectModel store(MagicObjectModel magicObjectmodel) {
@@ -82,24 +80,7 @@ public class MagicObjectService {
         return new MagicObjectPaginatorResponseDto(magicObjectDtos, magicObjectPage.getTotalPages(), magicObjectPage.getSize());
     }
 
-    @Transactional(readOnly = true)
-    public MagicObjectPaginatorResponseDto getByCategoryWithDetails(String category, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<MagicObjectModel> magicObjectPage;
-
-        if (category != null && !category.isEmpty()) {
-            magicObjectPage = magicObjectRepository.findByCategoryName(category, pageable);
-        } else {
-            magicObjectPage = magicObjectRepository.findAll(pageable);
-        }
-
-        List<MagicObjectResponseDto> magicObjectDtos = magicObjectPage.getContent()
-                .stream()
-                .map(magicObjectMapper::toMagicObjectDto)
-                .collect(Collectors.toList());
-
-        return new MagicObjectPaginatorResponseDto(magicObjectDtos, magicObjectPage.getTotalPages(), magicObjectPage.getSize());
-    }
+  
 
     @Transactional(readOnly = true)
     public MagicObjectPaginatorResponseDto getUnsoldMagicObjects(int page, int size) {
@@ -161,5 +142,18 @@ public class MagicObjectService {
                 .orElseThrow(
                         () -> new IllegalArgumentException("Magic object not exist")
                 );
+    }
+
+    @Transactional(readOnly = true)
+    public MagicObjectPaginatorResponseDto searchByName(String name, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<MagicObjectModel> magicObjectPage = magicObjectRepository.findByNameContainingIgnoreCase(name, pageable);
+
+        List<MagicObjectResponseDto> magicObjectDtos = magicObjectPage.getContent()
+                .stream()
+                .map(magicObjectMapper::toMagicObjectDto)
+                .collect(Collectors.toList());
+
+        return new MagicObjectPaginatorResponseDto(magicObjectDtos, magicObjectPage.getNumber(), magicObjectPage.getSize());
     }
 }

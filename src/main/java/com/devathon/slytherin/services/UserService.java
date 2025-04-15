@@ -105,4 +105,12 @@ public class UserService {
         }
     }
 
+    public void updateUserBalance(UserModel user, CurrencyDto totalPrice) {
+        // Logic to update the user's balance based on the total price
+        user.setPrice_galeon(user.getPrice_galeon() - totalPrice.getGaleons());
+        user.setPrice_sickle(user.getPrice_sickle() - totalPrice.getSickles());
+        user.setPrice_knut(user.getPrice_knut() - totalPrice.getKnuts()); // Use the correct field or method for knuts
+        userRepository.save(user);
+    }
+
 }
