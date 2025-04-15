@@ -40,10 +40,10 @@ public class UserService {
                 userResponseDto.setPrice_galeon(user.getPrice_galeon());
                 userResponseDto.setPrice_sickle(user.getPrice_sickle());
                 userResponseDto.setPrice_knut(user.getPrice_knut());
-                userResponseDto.setHouse(new HouseBasicDto(
+                /*userResponseDto.setHouse(new HouseBasicDto(
                 user.getHouseModel().getId(),
                 user.getHouseModel().getName()
-            ));
+            ));*/
                 return userResponseDto;
             })
             .toList();
@@ -61,10 +61,10 @@ public class UserService {
             userResponseDto.setPrice_galeon(user.getPrice_galeon());
             userResponseDto.setPrice_sickle(user.getPrice_sickle());
             userResponseDto.setPrice_knut(user.getPrice_knut());
-            userResponseDto.setHouse(new HouseBasicDto(
+            /*userResponseDto.setHouse(new HouseBasicDto(
                 user.getHouseModel().getId(),
                 user.getHouseModel().getName()
-            ));
+            ));*/
             return userResponseDto;
         })
         .orElseThrow(

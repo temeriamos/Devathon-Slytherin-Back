@@ -40,7 +40,7 @@ public class DataSeeder implements CommandLineRunner {
         public void run(String... args) throws Exception {
                 if (houseRepository.count() == 0) {
                         // 1. Crear casas
-                        HouseModel sanDamian = houseRepository.save(
+                        /*HouseModel sanDamian = houseRepository.save(
                                         HouseModel.builder()
                                                         .name("SAN DAMIAN")
                                                         .build());
@@ -48,7 +48,7 @@ public class DataSeeder implements CommandLineRunner {
                         HouseModel slytherin = houseRepository.save(
                                         HouseModel.builder()
                                                         .name("SLYTHERIN")
-                                                        .build());
+                                                        .build());*/
 
                         // 2. Crear usuarios asociados a casas
                         UserModel user1 = userRepository.save(
@@ -57,8 +57,9 @@ public class DataSeeder implements CommandLineRunner {
                                                         .price_galeon(50)
                                                         .price_sickle(30)
                                                         .price_knut(20)
-                                                        .houseModel(sanDamian)
                                                         .build());
+                                                        //.houseModel(sanDamian)
+                                                        
 
                         UserModel user2 = userRepository.save(
                                         UserModel.builder()
@@ -66,8 +67,9 @@ public class DataSeeder implements CommandLineRunner {
                                                         .price_galeon(40)
                                                         .price_sickle(25)
                                                         .price_knut(15)
-                                                        .houseModel(slytherin)
                                                         .build());
+                                                        //.houseModel(slytherin)
+                                                        
                         // 3. Crear categorias de objetos mágicos
                         CategoryModel artefactos_magicos = categoryRepository.save(
                                         CategoryModel.builder()

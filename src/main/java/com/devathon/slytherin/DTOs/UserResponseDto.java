@@ -17,5 +17,5 @@ public class UserResponseDto {
     private Integer price_galeon;
     private Integer price_sickle;
     private Integer price_knut;
-    private HouseBasicDto house;
+    //private HouseBasicDto house;
 }

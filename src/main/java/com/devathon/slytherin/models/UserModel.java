@@ -26,10 +26,10 @@ public class UserModel {
     private Integer price_sickle;
     @Column(nullable = false)
     private Integer price_knut;
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "house_id", nullable = false)
     @JsonBackReference
-    private HouseModel houseModel;
+    private HouseModel houseModel;*/
     
     @PrePersist
     @PreUpdate
