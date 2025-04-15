@@ -9,11 +9,14 @@ import org.springframework.stereotype.Service;
 import com.devathon.slytherin.DTOs.CurrencyDto;
 import com.devathon.slytherin.DTOs.PurchaseHistoryDto;
 import com.devathon.slytherin.models.SaleModel;
+import com.devathon.slytherin.models.SaleItemModel;
 import com.devathon.slytherin.models.UserModel;
 import com.devathon.slytherin.repositories.SaleRepository;
 import com.devathon.slytherin.repositories.SaleItemRepository;
 import com.devathon.slytherin.repositories.MagicObjectRepository;
 import com.devathon.slytherin.repositories.UserRepository;
+
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -50,19 +53,23 @@ public class SaleService {
         }
     }
 
+    @Transactional(readOnly = true)
     public List<PurchaseHistoryDto> getPurchaseHistoryByUserId(Long userId) {
         UserModel user = userRepository.findById(userId)
             .orElseThrow(() -> new RuntimeException("User not found"));
 
         List<SaleModel> sales = saleRepository.findByUserOrderByDateDesc(user);
 
-        return sales.stream().map(sale -> PurchaseHistoryDto.builder()
+        return sales.stream().flatMap(sale -> {
+            List<SaleItemModel> saleItems = saleItemRepository.findBySale_Id(sale.getId());
+            return saleItems.stream().map(saleItem -> PurchaseHistoryDto.builder()
                 .date(sale.getDate().toString())
-                .priceGaleon(sale.getPrice_galeon())
-                .priceSickle(sale.getPrice_sickle())
-                .priceKnut(sale.getPrice_knut())
-                .build())
-                .collect(Collectors.toList());
+                .objectName(saleItem.getObject().getName()) // Incluye el nombre del objeto
+                .priceGaleon(saleItem.getPrice_galeon())
+                .priceSickle(saleItem.getPrice_sickle())
+                .priceKnut(saleItem.getPrice_knut())
+                .build());
+        }).collect(Collectors.toList());
     }
 
     private String getObjectNameFromSale(SaleModel sale) {

@@ -103,7 +103,7 @@ public class SaleController {
         saleService.updateSaleTotal(saved, totalPrice);
 
         // Actualizar el saldo del usuario
-        userService.updateUserBalance(user, totalPrice);
+        userService.UserPriceUpdate(user, totalPrice);
 
         // Retornar una respuesta con código 201 (CREATED)
         return ResponseEntity.status(201).body("Sale " + saved.getId() + " created");
