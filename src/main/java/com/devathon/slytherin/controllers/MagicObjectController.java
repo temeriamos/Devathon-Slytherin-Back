@@ -60,13 +60,17 @@ public class MagicObjectController {
         return saved.getName() + " created";
     }
 
-    @Operation(summary = "Obtain a list of unsold magic objects", description = "Return all magic objects with purchased = false")
-    @ApiResponse(responseCode = "200", description = "List of unsold magic objects returned successfully")
+    @Operation(
+        summary = "Obtain a list of unsold magic objects and filtered by category", 
+        description = "Returns a paginated list of unsold magic objects filtered by category ID. If a category is not specified, returns all magic items.")
+    @ApiResponse(responseCode = "200", description = "Lista de objetos mágicos devuelta con éxito")
+    @ApiResponse(responseCode = "400", description = "Solicitud inválida")
     @GetMapping("/")
     public ResponseEntity<MagicObjectPaginatorResponseDto> getAllMagicObjects(
+            @RequestParam(required = false) Long category, // Cambiado a Long para aceptar el ID de la categoría
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "10") Integer size) {
-        return ResponseEntity.ok(magicObjectService.getUnsoldMagicObjects(page, size));
+        return ResponseEntity.ok(magicObjectService.getFilteredMagicObjects(category, page, size));
     }
 
     @Operation(summary = "Obtain a single magic object", description = "Return a single magic object by ID")
@@ -76,6 +80,7 @@ public class MagicObjectController {
         return magicObjectService.get(id);
     }
 
+    /*Servicio repetido, se puede eliminar
     @Operation(
             summary = "Get magic objects filtered by category",
             description = "Returns a paginated list of magic objects filtered by category ID. If a category is not specified, returns all magic items."
@@ -89,9 +94,7 @@ public class MagicObjectController {
             @RequestParam(defaultValue = "10") int size) {
         MagicObjectPaginatorResponseDto response = magicObjectService.getByCategoryId(category, page, size);
         return ResponseEntity.ok(response);
-    }
-
-   
+    }*/ 
 
     @Operation(
             summary = "Search for Magic Objects by name",

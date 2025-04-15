@@ -17,4 +17,6 @@ public interface MagicObjectRepository extends JpaRepository<MagicObjectModel, L
     Page<MagicObjectModel> findByCategory_Id(Long categoryId, Pageable pageable); // Método para buscar por ID de categoría
 
     Page<MagicObjectModel> findByNameContainingIgnoreCase(String name, Pageable pageable);
+
+    Page<MagicObjectModel> findByCategory_IdAndPurchased(Long categoryId, boolean purchased, Pageable pageable);
 }

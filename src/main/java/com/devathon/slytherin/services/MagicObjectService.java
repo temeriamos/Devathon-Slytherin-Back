@@ -114,6 +114,25 @@ public class MagicObjectService {
         return new MagicObjectPaginatorResponseDto(magicObjectDtos, magicObjectPage.getNumber(), magicObjectPage.getSize());
     }
 
+    @Transactional(readOnly = true)
+    public MagicObjectPaginatorResponseDto getFilteredMagicObjects(Long categoryId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<MagicObjectModel> magicObjectPage;
+
+        if (categoryId != null) {
+            magicObjectPage = magicObjectRepository.findByCategory_IdAndPurchased(categoryId, false, pageable);
+        } else {
+            magicObjectPage = magicObjectRepository.findAll(pageable);
+        }
+
+        List<MagicObjectResponseDto> magicObjectDtos = magicObjectPage.getContent()
+                .stream()
+                .map(magicObjectMapper::toMagicObjectDto)
+                .collect(Collectors.toList());
+
+        return new MagicObjectPaginatorResponseDto(magicObjectDtos, magicObjectPage.getNumber(), magicObjectPage.getSize());
+    }
+
     public MagicObjectResponseDto get(Long id) {
 
         return magicObjectRepository
