@@ -20,8 +20,9 @@ public class SaleItemModel {
     @JoinColumn(name = "sale_id", nullable = false)
     @JsonBackReference
     private SaleModel sale;
-    @Column(nullable = false)
-    private Long object_id;
+    @ManyToOne
+    @JoinColumn(name = "object_id", nullable = false)
+    private MagicObjectModel object;
     @Column(nullable = false)
     private Integer price_galeon;
     @Column(nullable = false)
