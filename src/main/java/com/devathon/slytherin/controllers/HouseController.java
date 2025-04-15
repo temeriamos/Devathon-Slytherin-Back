@@ -17,9 +17,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
-@Tag(name = "House", description = "Hogwarts House operations")
-@RestController
-@RequestMapping("house")
+//@Tag(name = "House", description = "Hogwarts House operations")
+//@RestController
+//@RequestMapping("house")
 @RequiredArgsConstructor
 public class HouseController {
 
