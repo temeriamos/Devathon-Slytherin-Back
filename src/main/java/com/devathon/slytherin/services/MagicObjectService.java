@@ -130,7 +130,7 @@ public class MagicObjectService {
                 .map(magicObjectMapper::toMagicObjectDto)
                 .collect(Collectors.toList());
 
-        return new MagicObjectPaginatorResponseDto(magicObjectDtos, magicObjectPage.getNumber(), magicObjectPage.getSize());
+        return new MagicObjectPaginatorResponseDto(magicObjectDtos, magicObjectPage.getTotalPages(), magicObjectPage.getSize());
     }
 
     public MagicObjectResponseDto get(Long id) {
