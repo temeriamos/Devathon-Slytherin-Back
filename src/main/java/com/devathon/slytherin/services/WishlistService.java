@@ -24,7 +24,7 @@ public class WishlistService {
     private final MagicObjectRepository magicObjectRepository;
     private final UserRepository userRepository;
 
-    public WishlistGroupedResponseDto getWishlistByUser(Long userId) {
+    public WishlistGroupedResponseDto getWishlistByUser(String userId) {
         List<WishlistModel> wishlists = wishlistRepository.findAll().stream()
             .filter(wishlist -> wishlist.getUserModel().getId().equals(userId))
             .toList();

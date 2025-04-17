@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Schema(description = "DTO for the wishlist")
 public class WishlistDto {
 
-    private Long userId;
+    private String userId;
     private Long magicObjectId;
 
 }

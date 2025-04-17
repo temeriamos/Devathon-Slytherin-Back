@@ -34,7 +34,7 @@ public class WishlistController {
     @GetMapping("/{userId}")
     @ApiResponse(responseCode = "200", description = "Wishlist retrieved successfully")
     @ApiResponse(responseCode = "404", description = "User not found")
-    public WishlistGroupedResponseDto getWishlistByUser(@PathVariable Long userId) {
+    public WishlistGroupedResponseDto getWishlistByUser(@PathVariable String userId) {
         return wishlistService.getWishlistByUser(userId);
     }
 

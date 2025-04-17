@@ -52,6 +52,7 @@ public class DataSeeder implements CommandLineRunner {
             // 2. Crear usuarios asociados a casas
             UserModel user1 = userRepository.save(
                     UserModel.builder()
+                            .id("Harry Potter")
                             .name("Harry Potter")
                             .price_galeon(50)
                             .price_sickle(30)
@@ -60,6 +61,7 @@ public class DataSeeder implements CommandLineRunner {
 
             UserModel user2 = userRepository.save(
                     UserModel.builder()
+                            .id("Draco Malfoy")
                             .name("Draco Malfoy")
                             .price_galeon(40)
                             .price_sickle(25)

@@ -4,6 +4,6 @@ import org.springframework.stereotype.Repository;
 import com.devathon.slytherin.models.UserModel;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserModel, Long>{
+public interface UserRepository extends JpaRepository<UserModel, String>{
     
 }

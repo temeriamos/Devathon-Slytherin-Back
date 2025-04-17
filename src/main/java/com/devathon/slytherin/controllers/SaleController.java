@@ -127,7 +127,7 @@ public class SaleController {
     @ApiResponse(responseCode = "200", description = "Purchase history returned successfully")
     @ApiResponse(responseCode = "404", description = "User not found or no purchase history")
     @GetMapping("/history/{userId}")
-    public ResponseEntity<List<PurchaseHistoryDto>> getPurchaseHistory(@PathVariable Long userId) {
+    public ResponseEntity<List<PurchaseHistoryDto>> getPurchaseHistory(@PathVariable String userId) {
         List<PurchaseHistoryDto> history = saleService.getPurchaseHistoryByUserId(userId);
         if (history.isEmpty()) {
             return ResponseEntity.notFound().build();

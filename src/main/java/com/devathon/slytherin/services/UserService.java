@@ -49,7 +49,7 @@ public class UserService {
             .toList();
     }
 
-    public UserResponseDto get(Long id) {
+    public UserResponseDto get(String id) {
 
         // Obtener usuario por is y relacionar con tabla House
         return userRepository
