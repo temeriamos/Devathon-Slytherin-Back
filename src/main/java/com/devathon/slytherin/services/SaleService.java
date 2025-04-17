@@ -54,7 +54,7 @@ public class SaleService {
     }
 
     @Transactional(readOnly = true)
-    public List<PurchaseHistoryDto> getPurchaseHistoryByUserId(Long userId) {
+    public List<PurchaseHistoryDto> getPurchaseHistoryByUserId(String userId) {
         UserModel user = userRepository.findById(userId)
             .orElseThrow(() -> new RuntimeException("User not found"));
 

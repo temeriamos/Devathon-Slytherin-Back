@@ -43,6 +43,7 @@ public class UserController {
 
         // Crear el usuario
         UserModel userModel = UserModel.builder()
+                .id(userDto.getName())
                 .name(userDto.getName())
                 .price_galeon(userDto.getPrice_galeon())
                 .price_sickle(userDto.getPrice_sickle())
@@ -63,7 +64,7 @@ public class UserController {
     @Operation(summary = "Obtain a single user", description = "Return a single user by ID")
     @ApiResponse(responseCode = "200", description = "User returned successfully")
     @GetMapping("/{id}")
-    public UserResponseDto getUser(@PathVariable Long id) {
+    public UserResponseDto getUser(@PathVariable String id) {
         return userService.get(id);
     }
 }

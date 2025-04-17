@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Schema(description = "DTO for the creation of a sale and items")
 public class SaleRequestDto {
-    private Long user_id;
+    private String user_id;
     private Integer total_galeon;
     private Integer total_sickle;
     private Integer total_knut;

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Schema(description = "DTO for the response of a user")
 public class UserResponseDto {
-    private Long id;
+    private String id;
     private String name;
     private Integer price_galeon;
     private Integer price_sickle;

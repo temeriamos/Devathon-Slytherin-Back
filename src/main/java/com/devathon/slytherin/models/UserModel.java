@@ -16,8 +16,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 public class UserModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Column(nullable = false, length = 50)
     private String name;
