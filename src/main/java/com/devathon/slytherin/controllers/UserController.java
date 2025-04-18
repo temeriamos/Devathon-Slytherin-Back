@@ -1,13 +1,17 @@
 package com.devathon.slytherin.controllers;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.devathon.slytherin.DTOs.UserDto;
 import com.devathon.slytherin.DTOs.UserResponseDto;
@@ -34,26 +38,27 @@ public class UserController {
     
     @Operation(summary = "Create a new user", description = "Register a new user in DB")
     @ApiResponse(responseCode = "201", description = "User created successfully")
-    @PostMapping("/")
-    public String createUser(@RequestBody UserDto userDto) {
-
-        // Buscar la casa por ID
-        //HouseModel house = houseRepository.findById(userDto.getHouse_id().longValue())
-        //        .orElseThrow(() -> new RuntimeException("House not found"));
-
-        // Crear el usuario
+    @PostMapping(value = "/", consumes = "multipart/form-data")
+    public ResponseEntity<?> createUser(
+            @RequestParam String name,
+            @RequestParam Integer price_galeon,
+            @RequestParam Integer price_sickle,
+            @RequestParam Integer price_knut,
+            @RequestParam("image") MultipartFile image
+    ) throws IOException {
         UserModel userModel = UserModel.builder()
-                .id(userDto.getName())
-                .name(userDto.getName())
-                .price_galeon(userDto.getPrice_galeon())
-                .price_sickle(userDto.getPrice_sickle())
-                .price_knut(userDto.getPrice_knut())
+                .id(name)
+                .name(name)
+                .price_galeon(price_galeon)
+                .price_sickle(price_sickle)
+                .price_knut(price_knut)
+                .imageData(image != null ? image.getBytes() : null)
                 .build();
 
         UserModel saved = userService.store(userModel);
-
-        return saved.getName() + " created";
+        return ResponseEntity.ok(saved.getName() + " created");
     }
+
     @Operation(summary = "Obtain list of users", description = "Return all users registered")
     @ApiResponse(responseCode = "200", description = "List of users returned successfully") 
     @GetMapping("/")

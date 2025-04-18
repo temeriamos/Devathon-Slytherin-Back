@@ -30,9 +30,10 @@ public class UserModel {
     @Column(nullable = false)
     private Integer price_knut;
 
-    @Column(name = "image_url", length = 255)
-    private String image_url; // ← Nuevo campo
-    
+    @Lob
+    @Column(name = "image_data")
+    private byte[] imageData;
+
     @PrePersist
     @PreUpdate
     private void setDefaultValues() {
