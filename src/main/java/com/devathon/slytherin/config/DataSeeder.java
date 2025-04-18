@@ -5,6 +5,8 @@ import com.devathon.slytherin.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.util.List;
 
@@ -56,8 +58,7 @@ public class DataSeeder implements CommandLineRunner {
                             .name("Harry Potter")
                             .price_galeon(50)
                             .price_sickle(30)
-                            .price_knut(20)
-                            .image_url("https://example.com/images/harry.jpg")
+                            .price_knut(20)                            
                             .build());
 
             UserModel user2 = userRepository.save(
@@ -66,8 +67,7 @@ public class DataSeeder implements CommandLineRunner {
                             .name("Draco Malfoy")
                             .price_galeon(40)
                             .price_sickle(25)
-                            .price_knut(15)
-                            .image_url("https://example.com/images/draco.jpg")
+                            .price_knut(15)                            
                             .build());
             // 3. Crear categorias de objetos mágicos
             CategoryModel artefactos_magicos = categoryRepository.save(
@@ -508,6 +508,19 @@ public class DataSeeder implements CommandLineRunner {
         }
 
         if (userRepository.count() == 0) {
+            byte[] harryImage = null;
+            byte[] dracoImage = null;
+            try {
+                harryImage = Files.readAllBytes(Paths.get("C:/Users/jamar/Pictures/harry.jpg"));
+            } catch (Exception e) {
+                System.out.println("No se encontró la imagen de Harry Potter, se usará null.");
+            }
+            try {
+                dracoImage = Files.readAllBytes(Paths.get("C:/Users/jamar/Pictures/draco.jpg"));
+            } catch (Exception e) {
+                System.out.println("No se encontró la imagen de Draco Malfoy, se usará null.");
+            }
+
             userRepository.save(
                 UserModel.builder()
                     .id("Harry Potter")
@@ -515,7 +528,7 @@ public class DataSeeder implements CommandLineRunner {
                     .price_galeon(50)
                     .price_sickle(30)
                     .price_knut(20)
-                    .image_url("https://example.com/images/harry.jpg")
+                    .imageData(harryImage)
                     .build()
             );
             userRepository.save(
@@ -525,7 +538,7 @@ public class DataSeeder implements CommandLineRunner {
                     .price_galeon(40)
                     .price_sickle(25)
                     .price_knut(15)
-                    .image_url("https://example.com/images/draco.jpg")
+                    .imageData(dracoImage)
                     .build()
             );
         }

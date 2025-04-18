@@ -1,6 +1,7 @@
 package com.devathon.slytherin.services;
 
 import java.util.List;
+import java.util.Base64;
 
 import org.springframework.stereotype.Service;
 
@@ -33,19 +34,14 @@ public class UserService {
 
     public List<UserResponseDto> get() {
         return userRepository.findAll().stream()
-            .map(user -> {
-                UserResponseDto userResponseDto = new UserResponseDto();
-                userResponseDto.setId(user.getId());
-                userResponseDto.setName(user.getName());
-                userResponseDto.setPrice_galeon(user.getPrice_galeon());
-                userResponseDto.setPrice_sickle(user.getPrice_sickle());
-                userResponseDto.setPrice_knut(user.getPrice_knut());
-                /*userResponseDto.setHouse(new HouseBasicDto(
-                user.getHouseModel().getId(),
-                user.getHouseModel().getName()
-            ));*/
-                return userResponseDto;
-            })
+            .map(user -> UserResponseDto.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .price_galeon(user.getPrice_galeon())
+                .price_sickle(user.getPrice_sickle())
+                .price_knut(user.getPrice_knut())
+                .imageBase64(user.getImageData() != null ? Base64.getEncoder().encodeToString(user.getImageData()) : null)
+                .build())
             .toList();
     }
 
@@ -57,7 +53,7 @@ public class UserService {
                 .price_galeon(user.getPrice_galeon())
                 .price_sickle(user.getPrice_sickle())
                 .price_knut(user.getPrice_knut())
-                .image_url(user.getImage_url()) // ← Mapeo del campo
+                .imageBase64(user.getImageData() != null ? Base64.getEncoder().encodeToString(user.getImageData()) : null)
                 .build())
             .orElseThrow(() -> new IllegalArgumentException("User not exist"));
     }
