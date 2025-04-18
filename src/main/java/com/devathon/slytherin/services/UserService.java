@@ -50,26 +50,16 @@ public class UserService {
     }
 
     public UserResponseDto get(String id) {
-
-        // Obtener usuario por is y relacionar con tabla House
-        return userRepository
-        .findById(id)
-        .map(user -> {
-            UserResponseDto userResponseDto = new UserResponseDto();
-            userResponseDto.setId(user.getId());
-            userResponseDto.setName(user.getName());
-            userResponseDto.setPrice_galeon(user.getPrice_galeon());
-            userResponseDto.setPrice_sickle(user.getPrice_sickle());
-            userResponseDto.setPrice_knut(user.getPrice_knut());
-            /*userResponseDto.setHouse(new HouseBasicDto(
-                user.getHouseModel().getId(),
-                user.getHouseModel().getName()
-            ));*/
-            return userResponseDto;
-        })
-        .orElseThrow(
-            () -> new IllegalArgumentException("User not exist")
-        );
+        return userRepository.findById(id)
+            .map(user -> UserResponseDto.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .price_galeon(user.getPrice_galeon())
+                .price_sickle(user.getPrice_sickle())
+                .price_knut(user.getPrice_knut())
+                .image_url(user.getImage_url()) // ← Mapeo del campo
+                .build())
+            .orElseThrow(() -> new IllegalArgumentException("User not exist"));
     }
 
     public boolean checkSufficientBalance(UserModel user, List<SaleItemRequestDto> saleItems) {

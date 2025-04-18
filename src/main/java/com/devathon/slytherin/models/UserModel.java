@@ -29,10 +29,9 @@ public class UserModel {
 
     @Column(nullable = false)
     private Integer price_knut;
-    /*@ManyToOne
-    @JoinColumn(name = "house_id", nullable = false)
-    @JsonBackReference
-    private HouseModel houseModel;*/
+
+    @Column(name = "image_url", length = 255)
+    private String image_url; // ← Nuevo campo
     
     @PrePersist
     @PreUpdate
