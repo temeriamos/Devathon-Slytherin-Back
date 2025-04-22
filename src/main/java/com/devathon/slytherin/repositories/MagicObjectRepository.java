@@ -1,5 +1,7 @@
 package com.devathon.slytherin.repositories;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,4 +21,6 @@ public interface MagicObjectRepository extends JpaRepository<MagicObjectModel, L
     Page<MagicObjectModel> findByNameContainingIgnoreCase(String name, Pageable pageable);
 
     Page<MagicObjectModel> findByCategory_IdAndPurchased(Long categoryId, boolean purchased, Pageable pageable);
+
+    List<MagicObjectModel> findByRarity_Id(Long rarityId); // Método para buscar por ID de rareza
 }
