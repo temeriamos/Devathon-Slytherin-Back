@@ -6,8 +6,10 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.devathon.slytherin.DTOs.CategoryResponseDto;
 import com.devathon.slytherin.DTOs.CurrencyDto;
 import com.devathon.slytherin.DTOs.PurchaseHistoryDto;
+import com.devathon.slytherin.DTOs.RarityResponseDto;
 import com.devathon.slytherin.models.SaleModel;
 import com.devathon.slytherin.models.SaleItemModel;
 import com.devathon.slytherin.models.UserModel;
@@ -65,9 +67,14 @@ public class SaleService {
             return saleItems.stream().map(saleItem -> PurchaseHistoryDto.builder()
                 .date(sale.getDate().toString())
                 .objectName(saleItem.getObject().getName()) // Incluye el nombre del objeto
-                .priceGaleon(saleItem.getPrice_galeon())
-                .priceSickle(saleItem.getPrice_sickle())
-                .priceKnut(saleItem.getPrice_knut())
+                .short_description(saleItem.getObject().getShort_description())
+                .long_description(saleItem.getObject().getLong_description())   
+                .category(new CategoryResponseDto(saleItem.getObject().getCategory().getId(), saleItem.getObject().getCategory().getName()))  
+                .rarity(new RarityResponseDto(saleItem.getObject().getRarity().getId(), saleItem.getObject().getRarity().getName()))
+                .price_galeon(saleItem.getPrice_galeon())    
+                .price_sickle(saleItem.getPrice_sickle()) 
+                .price_knut(saleItem.getPrice_knut())     
+                .url_image(saleItem.getObject().getUrl_image())
                 .build());
         }).collect(Collectors.toList());
     }
