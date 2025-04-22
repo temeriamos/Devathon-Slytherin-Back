@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+import javax.persistence.metamodel.ListAttribute;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -80,22 +82,6 @@ public class MagicObjectController {
         return magicObjectService.get(id);
     }
 
-    /*Servicio repetido, se puede eliminar
-    @Operation(
-            summary = "Get magic objects filtered by category",
-            description = "Returns a paginated list of magic objects filtered by category ID. If a category is not specified, returns all magic items."
-    )
-    @ApiResponse(responseCode = "200", description = "Lista de objetos mágicos devuelta con éxito")
-    @ApiResponse(responseCode = "400", description = "Solicitud inválida")
-    @GetMapping
-    public ResponseEntity<MagicObjectPaginatorResponseDto> getMagicObjects(
-            @RequestParam(required = false) Long category, // Cambiado a Long para aceptar el ID de la categoría
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        MagicObjectPaginatorResponseDto response = magicObjectService.getByCategoryId(category, page, size);
-        return ResponseEntity.ok(response);
-    }*/ 
-
     @Operation(
             summary = "Search for Magic Objects by name",
             description = "Returns a paginated list of magic objects whose name contains the provided text."
@@ -109,5 +95,16 @@ public class MagicObjectController {
             @RequestParam(defaultValue = "10") int size) {
         MagicObjectPaginatorResponseDto response = magicObjectService.searchByName(query, page, size);
         return ResponseEntity.ok(response);
+    }
+
+    @Operation(
+        summary = "Obtain a list of unsold magic objects and filtered by rarity", 
+        description = "Returns a list of unsold magic objects filtered by rarity ID. If a rarity is not specified, returns all magic items.")
+    @ApiResponse(responseCode = "200", description = "Lista de objetos mágicos devuelta con éxito")
+    @ApiResponse(responseCode = "400", description = "Solicitud inválida")
+    @GetMapping("/rarity")
+    public ResponseEntity<List<MagicObjectResponseDto>> getAllMagicObjectsRarity(
+            @RequestParam(required = false) Long rarity) {
+        return ResponseEntity.ok(magicObjectService.getFilteredMagicObjectsRarity(rarity));
     }
 }

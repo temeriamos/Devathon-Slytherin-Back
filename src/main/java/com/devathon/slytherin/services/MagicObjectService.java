@@ -17,7 +17,9 @@ import org.springframework.stereotype.Service;
 import com.devathon.slytherin.DTOs.CategoryResponseDto;
 import com.devathon.slytherin.DTOs.MagicObjectResponseDto;
 import com.devathon.slytherin.DTOs.RarityResponseDto;
+import com.devathon.slytherin.DTOs.SaleItemResponseDto;
 import com.devathon.slytherin.models.MagicObjectModel;
+import com.devathon.slytherin.models.SaleItemModel;
 import com.devathon.slytherin.repositories.MagicObjectRepository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -131,6 +133,21 @@ public class MagicObjectService {
                 .collect(Collectors.toList());
 
         return new MagicObjectPaginatorResponseDto(magicObjectDtos, magicObjectPage.getTotalPages(), magicObjectPage.getSize());
+    }
+
+    @Transactional(readOnly = true)
+    public List<MagicObjectResponseDto> getFilteredMagicObjectsRarity(Long rarityId) {
+        List<MagicObjectModel> magicObjects;
+
+        if (rarityId != null) {
+            magicObjects = magicObjectRepository.findByRarity_Id(rarityId);
+        } else {
+            magicObjects = magicObjectRepository.findAll();
+        }
+
+        return magicObjects.stream()
+                .map(magicObjectMapper::toMagicObjectDto)
+                .collect(Collectors.toList());
     }
 
     public MagicObjectResponseDto get(Long id) {
