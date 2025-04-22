@@ -12,7 +12,12 @@ import lombok.NoArgsConstructor;
 public class PurchaseHistoryDto {
     private String date;
     private String objectName;
-    private Integer priceGaleon;
-    private Integer priceSickle;
-    private Integer priceKnut;
+    private String short_description;
+    private String long_description;
+    private CategoryResponseDto category;
+    private RarityResponseDto rarity;
+    private Integer price_galeon;
+    private Integer price_sickle;
+    private Integer price_knut;
+    private String url_image;
 }
