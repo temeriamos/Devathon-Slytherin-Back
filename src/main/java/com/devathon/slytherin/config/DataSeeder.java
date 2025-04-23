@@ -108,6 +108,10 @@ public class DataSeeder implements CommandLineRunner {
                     RarityModel.builder()
                             .name("Legendario")
                             .build());
+            RarityModel mitico = rarityRepository.save(
+                    RarityModel.builder()
+                            .name("Mítico")
+                            .build());
 
             // 4. Crear objetos mágicos (sin relación)
             magicObjectRepository.save(
@@ -503,6 +507,169 @@ public class DataSeeder implements CommandLineRunner {
                             .url_image("https://i.imgur.com/JKV3oLd.jpeg")
                             .purchased(false)
                             .build());
+
+            //Objetos míticos de la tienda
+            //Solo deben salir en el servicio que realiza el filtro por categoría
+            //y no en la tienda normal
+            magicObjectRepository.save(
+                    MagicObjectModel.builder()
+                            .name("DAGA DE LAS SOMBRAS ETERNAS")
+                            .short_description(
+                                                "Daga ceremonial de obsidiana, usada para rituales oscuros y sellos de sangre.")
+                            .long_description(
+                                                "La Daga de las Sombras Eternas es un arma ceremonial de gran valor histórico y mágico, forjada en obsidiana templada con sangre de dragón negro. Su hoja posee propiedades únicas que permiten atravesar tanto materia física como campos mágicos de protección, convirtiéndola en un instrumento indispensable en rituales oscuros y maldiciones ancestrales. Se utiliza principalmente en ceremonias de vinculación y sellado, en las cuales el sacrificio de sangre otorga al portador parte de la esencia vital de su víctima. Su empuñadura está adornada con filigranas de plata y una pequeña gema de ónix que absorbe los fragmentos del alma obtenidos. Esta gema, al acumular demasiada energía, irradia un leve resplandor violáceo. Por su alto valor histórico y los riesgos inherentes a su uso, se encuentra clasificada como objeto prohibido en varios registros mágicos internacionales.")
+                            .category(artefactos_magicos)
+                            .rarity(mitico)
+                            .price_galeon(245)
+                            .price_sickle(14)
+                            .price_knut(26)
+                            .url_image("https://i.imgur.com/ZVyWYfD.jpeg")
+                            .purchased(false)
+                            .build());
+
+            magicObjectRepository.save(
+                     MagicObjectModel.builder()
+                            .name("LÁMINA DE THÁNATOS")
+                            .short_description(
+                                                            "Espada encantada vinculada a la muerte, utilizada por los más grandes hechiceros para invocar sombras y sellar destinos.")
+                            .long_description(
+                                                            "La Lámina de Thánatos es una espada ancestral cuyo filo está forjado con fragmentos de almas perdidas y misticismo oscuro. La hoja, de un negro azabache profundo, parece absorber la luz a su alrededor, proyectando una sombra oscura incluso cuando no está en uso. Su empuñadura, de hierro envejecido, está adornada con símbolos arcanos que brillan débilmente cuando la hoja está empapada en la sangre de su víctima. Usada por hechiceros y mortífagos en tiempos antiguos, la espada tiene el poder de invocar las sombras que acompañan a la muerte y de sellar destinos irrevocables. Quienes empuñan la Lámina de Thánatos se dice que pueden dominar las fronteras entre la vida y la muerte, aunque el precio por tal poder puede ser demasiado alto.")
+                            .category(artefactos_magicos)
+                            .rarity(mitico)
+                            .price_galeon(432)
+                            .price_sickle(15)
+                            .price_knut(5)
+                            .url_image("https://i.imgur.com/4y19BdT.jpeg")
+                            .purchased(false)
+                            .build());            
+
+            magicObjectRepository.save(
+                     MagicObjectModel.builder()
+                            .name("LÁGRIMA DE BANSHEE")
+                            .short_description(
+                                                            "Cristal raro formado por la lágrima de una banshee atrapada en un estado eterno de lamento, posee el poder de predecir la muerte.")
+                            .long_description(
+                                                            "La Lágrima de Banshee cristalizada es un raro y macabro objeto de poder, formado por el sollozo de una banshee atrapada en su lamento eterno. Esta gema, de un color blanco translúcido con destellos plateados, se forma cuando las lágrimas de la criatura se solidifican bajo una magia ancestral. El cristal emite una leve vibración cuando alguien cercano está al borde de la muerte, y se cree que quien posea una Lágrima de Banshee podrá recibir visiones de los momentos finales de aquellos cuya vida está por extinguirse. Además, la gema se dice que posee la capacidad de atraer las almas perdidas, lo que la convierte en un artefacto tanto temido como deseado. Su poder es innegable, pero también tiene un precio: aquellos que la usan con intenciones egoístas, pueden ser acechados por las mismas entidades que la rodean.")
+                            .category(ingredientes_para_pociones)
+                            .rarity(mitico)
+                            .price_galeon(157)
+                            .price_sickle(11)
+                            .price_knut(8)
+                            .url_image("https://i.imgur.com/cYFXmcl.jpeg")
+                            .purchased(false)
+                            .build());  
+
+            magicObjectRepository.save(
+                     MagicObjectModel.builder()
+                            .name("SAVIA DEL ÁRBOL DE LOS SUSURROS")
+                            .short_description(
+                                                            "Savia mágica obtenida de un antiguo árbol, utilizada para amplificar la percepción y conectar con espíritus ancestrales.")
+                            .long_description(
+                                                            "La Savia del Árbol de los Susurros proviene de un árbol ancestral que se dice está ubicado en un bosque olvidado, protegido por las entidades más viejas del mundo mágico. Esta savia tiene la capacidad de amplificar las percepciones sensoriales y psíquicas de quien la consuma, permitiéndole escuchar voces de espíritus y acceder a recuerdos perdidos en el tiempo. Se usa en rituales para contactar con seres del más allá o desentrañar secretos olvidados. Su naturaleza viscosa y opaca, de color verde esmeralda, brilla débilmente en la oscuridad, como si estuviera viva. La savia es extremadamente rara, solo recolectada en ciertas fases lunares y se vende solo a quienes demuestran tener un profundo conocimiento de los misterios ocultos. Sin embargo, se advierte que el consumo excesivo de la savia puede llevar a la locura, ya que las voces y visiones pueden volverse insoportables y abrumadoras.")
+                            .category(ingredientes_para_pociones)
+                            .rarity(mitico)
+                            .price_galeon(275)
+                            .price_sickle(19)
+                            .price_knut(12)
+                            .url_image("https://i.imgur.com/pvX5EeW.jpeg")
+                            .purchased(false)
+                            .build()); 
+                            
+            magicObjectRepository.save(
+                     MagicObjectModel.builder()
+                            .name("OSCURAE MAGIA: TOMO I")
+                            .short_description(
+                                                            "Un antiguo libro prohibido que contiene conocimientos sobre las artes oscuras y los hechizos más peligrosos.")
+                            .long_description(
+                                                            "Oscurae Magia: Tomo I es uno de los textos más temidos y deseados por aquellos que buscan dominar las artes oscuras. Escrito por un oscuro mago olvidado, este tomo recopila hechizos y rituales de gran poder, muchos de los cuales fueron sellados por generaciones de magos para evitar que cayeran en manos equivocadas. La encuadernación de cuero negro y las páginas envejecidas parecen latir con una energía oscura que atrae a los curiosos, pero advierte a los imprudentes. El contenido del libro está lleno de invocaciones, maldiciones, y rituales capaces de alterar el curso de la vida, invocar criaturas malignas, e incluso desafiar la muerte misma. Aunque muchos intentaron destruirlo, Oscurae Magia sigue siendo una fuente de conocimientos prohibidos. Los que se atreven a leerlo son advertidos de las consecuencias, pues no solo se enfrentan a la oscuridad en los hechizos, sino también a la maldición que el libro mismo parece emitir.")
+                            .category(libros_prohibidos)
+                            .rarity(mitico)
+                            .price_galeon(485)
+                            .price_sickle(32)
+                            .price_knut(5)
+                            .url_image("https://i.imgur.com/NnM6XVD.jpeg")
+                            .purchased(false)
+                            .build()); 
+                 
+                magicObjectRepository.save(
+                     MagicObjectModel.builder()
+                            .name("EL LEGADO DE SALAZAR")
+                            .short_description(
+                                                            "Compendio heredado de Salazar Slytherin, contiene secretos ancestrales sobre magia oscura y control de criaturas.")
+                            .long_description(
+                                                            "El Legado de Salazar es un libro mítico atribuido directamente a Salazar Slytherin, uno de los cuatro fundadores de Hogwarts y maestro de las artes oscuras. Este tomo encuadernado en piel de basilisco conserva en su interior conjuros, rituales y conocimientos prohibidos sobre magia oscura, encantamientos de control mental y el manejo de criaturas peligrosas. Sus páginas, teñidas de verde oscuro y grabadas con tinta encantada, se dice que sólo pueden ser leídas por aquellos con sangre pura o con la habilidad de hablar pársel. Más que un simple libro, este compendio es un legado vivo de la filosofía de Slytherin: poder, legado y supervivencia a cualquier precio. Su contenido incluye rituales de invocación, pociones de longevidad y antiguos embrujos utilizados para proteger linajes de sangre pura. Muchos de sus pasajes permanecen ininteligibles para los no iniciados, protegiendo así los secretos más oscuros de su autor.")
+                            .category(libros_prohibidos)
+                            .rarity(mitico)
+                            .price_galeon(612)
+                            .price_sickle(7)
+                            .price_knut(23)
+                            .url_image("https://i.imgur.com/nqw5Tsm.jpeg")
+                            .purchased(false)
+                            .build());            
+
+            magicObjectRepository.save(
+                     MagicObjectModel.builder()
+                            .name("ASHPYRE")
+                            .short_description(
+                                                            "Ave mágica de plumaje oscuro, renace de cenizas malditas y obedece solo a magos oscuros.")
+                            .long_description(
+                                                            "El Fénix Sombrío, conocido como Ashpyre, es una criatura legendaria envuelta en mitos y temor. A diferencia de su contraparte luminosa, este fénix posee un plumaje negro azabache con reflejos púrpura y ojos rojos brillantes como brasas. Nace en cementerios antiguos o ruinas encantadas, alimentándose de energías oscuras y cenizas malditas. Se dice que su canto, lejos de curar, provoca desesperanza y fatiga en los vivos, debilitando la voluntad de quienes lo escuchan. Al morir, el Ashpyre renace de cenizas negras, dejando tras de sí un círculo de suelo estéril. Es usado por magos oscuros como mensajero, guardián o canalizador de maldiciones, y su plumaje se utiliza en poderosas varitas o pociones de control mental. Dominarlo requiere antiguos rituales y un vínculo mágico inquebrantable, pues un Ashpyre jamás servirá a un corazón débil.")
+                            .category(criaturas)
+                            .rarity(mitico)
+                            .price_galeon(830)
+                            .price_sickle(14)
+                            .price_knut(9)
+                            .url_image("https://i.imgur.com/MHLftDf.jpeg")
+                            .purchased(false)
+                            .build());  
+
+            magicObjectRepository.save(
+                     MagicObjectModel.builder()
+                            .name("WYVERN DE SOMBRAS")
+                            .short_description(
+                                                            "Bestia alada de origen antiguo, criada en cavernas sin luz.")
+                            .long_description(
+                                                            "El Wyvern de Sombra es una criatura alada de linaje ancestral, criada en los abismos más oscuros de montañas prohibidas, donde la luz jamás alcanza. Con escamas negras opacas y ojos carmesí sin pupilas, estos seres poseen un aliento venenoso capaz de consumir magia y disolver encantamientos. Aunque más pequeño que un dragón, su agilidad y afinidad con la magia oscura lo convierten en una de las bestias más temidas entre los domadores de criaturas prohibidas. Se dice que su sangre puede emplearse para elaborar pociones de invisibilidad prolongada o rituales de protección contra la muerte. Por su naturaleza salvaje y maldita, su comercio está vetado por el Ministerio de Magia en casi todo el mundo mágico.")
+                            .category(criaturas)
+                            .rarity(mitico)
+                            .price_galeon(1245)
+                            .price_sickle(3)
+                            .price_knut(17)
+                            .url_image("https://i.imgur.com/ysKDv3W.jpeg")
+                            .purchased(false)
+                            .build()); 
+                            
+            magicObjectRepository.save(
+                     MagicObjectModel.builder()
+                            .name("CAPA DE LAS ALMAS ERRANTES")
+                            .short_description(
+                                                            "Vestimenta oscura que envuelve al portador en un manto de almas vagantes.")
+                            .long_description(
+                                                            "La Capa de las Almas Errantes es una reliquia textil encantada en tiempos inmemoriales por nigromantes que buscaban contener fragmentos de almas condenadas. Tejida con hilos de sombra y reforzada con esencia de éter nocturno, esta capa otorga a su portador la capacidad de desvanecerse parcialmente en la oscuridad, volviéndose casi intangible a los ojos inexpertos. Se dice que las almas atrapadas en su tejido susurran advertencias a quien la lleva, y pueden incluso intervenir en momentos de peligro, desorientando enemigos o protegiendo a su dueño mediante ráfagas de frío espectral. Sin embargo, su uso prolongado deteriora el vínculo vital del mago con su propia esencia, dejando secuelas espirituales irreversibles.")
+                            .category(vestimenta_y_accesorios)
+                            .rarity(mitico)
+                            .price_galeon(614)
+                            .price_sickle(4)
+                            .price_knut(22)
+                            .url_image("https://i.imgur.com/IypMRKl.jpeg")
+                            .purchased(false)
+                            .build()); 
+                      
+            magicObjectRepository.save(
+                     MagicObjectModel.builder()
+                            .name("MÁSCARA DEL ECLIPSE ROTO")
+                            .short_description(
+                                                            "Máscara maldita que distorsiona la percepción y la voluntad de quienes la miran.")
+                            .long_description(
+                                                            "La Máscara del Eclipse Roto es un antiguo artefacto ceremonial forjado durante un eclipse total de luna, en un ritual destinado a invocar a deidades prohibidas de las sombras. Tallada en obsidiana pulida y fragmentada por grietas plateadas, la máscara permite al portador desdibujar su identidad y reflejar los temores más profundos de quien lo observe. Se dice que quienes cruzan su mirada con los ojos sin alma de la máscara pueden quedar atrapados en visiones de su peor destino, lo que otorga al usuario una ventaja para el engaño, la intimidación o la huida. Sin embargo, cada uso consume una fracción de la memoria del portador, dejando lagunas irreparables en su conciencia.")
+                            .category(vestimenta_y_accesorios)
+                            .rarity(mitico)
+                            .price_galeon(421)
+                            .price_sickle(16)
+                            .price_knut(9)
+                            .url_image("https://i.imgur.com/M0fq0zR.jpeg")
+                            .purchased(false)
+                            .build()); 
 
             System.out.println("🌱 Datos de prueba creados correctamente.");
         }
