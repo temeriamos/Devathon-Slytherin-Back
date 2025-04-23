@@ -23,4 +23,10 @@ public interface MagicObjectRepository extends JpaRepository<MagicObjectModel, L
     Page<MagicObjectModel> findByCategory_IdAndPurchased(Long categoryId, boolean purchased, Pageable pageable);
 
     List<MagicObjectModel> findByRarity_Id(Long rarityId); // Método para buscar por ID de rareza
+
+    Page<MagicObjectModel> findByCategory_IdAndPurchasedAndRarity_IdNot(Long categoryId, boolean purchased, Long rarityId, Pageable pageable);
+
+    Page<MagicObjectModel> findByRarity_IdNot(Long rarityId, Pageable pageable);
+
+    Page<MagicObjectModel> findByNameContainingIgnoreCaseAndPurchasedAndRarity_IdNot(String name, boolean purchased, Long rarityId, Pageable pageable);
 }
