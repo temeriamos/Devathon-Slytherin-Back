@@ -6,10 +6,8 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,9 +15,7 @@ import org.springframework.stereotype.Service;
 import com.devathon.slytherin.DTOs.CategoryResponseDto;
 import com.devathon.slytherin.DTOs.MagicObjectResponseDto;
 import com.devathon.slytherin.DTOs.RarityResponseDto;
-import com.devathon.slytherin.DTOs.SaleItemResponseDto;
 import com.devathon.slytherin.models.MagicObjectModel;
-import com.devathon.slytherin.models.SaleItemModel;
 import com.devathon.slytherin.repositories.MagicObjectRepository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -120,11 +116,12 @@ public class MagicObjectService {
     public MagicObjectPaginatorResponseDto getFilteredMagicObjects(Long categoryId, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<MagicObjectModel> magicObjectPage;
+        Long excludedRarityId = 4L; // ID de la rareza a excluir (miticos)
 
         if (categoryId != null) {
-            magicObjectPage = magicObjectRepository.findByCategory_IdAndPurchased(categoryId, false, pageable);
+            magicObjectPage = magicObjectRepository.findByCategory_IdAndPurchasedAndRarity_IdNot(categoryId, false, excludedRarityId, pageable);
         } else {
-            magicObjectPage = magicObjectRepository.findAll(pageable);
+            magicObjectPage = magicObjectRepository.findByRarity_IdNot(excludedRarityId, pageable);
         }
 
         List<MagicObjectResponseDto> magicObjectDtos = magicObjectPage.getContent()
@@ -183,7 +180,8 @@ public class MagicObjectService {
     @Transactional(readOnly = true)
     public MagicObjectPaginatorResponseDto searchByName(String name, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<MagicObjectModel> magicObjectPage = magicObjectRepository.findByNameContainingIgnoreCase(name, pageable);
+        Long excludedRarityId = 4L; // ID de la rareza a excluir (miticos)
+        Page<MagicObjectModel> magicObjectPage = magicObjectRepository.findByNameContainingIgnoreCaseAndPurchasedAndRarity_IdNot(name, false, excludedRarityId, pageable);
 
         List<MagicObjectResponseDto> magicObjectDtos = magicObjectPage.getContent()
                 .stream()
